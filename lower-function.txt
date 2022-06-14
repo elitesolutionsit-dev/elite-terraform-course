@@ -1,0 +1,3 @@
+lower("TAMMIE")
+lower("ARREY")
+lower("ELITE-DEV-DB")

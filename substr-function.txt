@@ -1,0 +1,5 @@
+substr("hello world", 1, 4)
+
+substr("Tammie", 1, 4)
+
+substr("Arrey", 0, 3)
