@@ -1,0 +1,11 @@
+element([list],  index)
+
+element(["a", "b", "c"], 3)
+
+length(["a", "b", "c"])
+
+length(["tammie", "jerry", "sam", "lewis"])
+
+length(["tammie"])
+
+length(["10.0.0.0/24", "10.0.1.0/24"])

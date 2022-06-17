@@ -1,0 +1,7 @@
+lookup({a="ay", b="bee"}, "a", "what?")
+
+lookup({a="ay", b="bee"}, "z", "b")
+
+lookup({a="ay", b="bee"}, "b", "z")
+
+lookup({a="ay", b="bee"}, "c", "what?")
