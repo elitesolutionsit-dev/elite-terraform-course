@@ -34,3 +34,26 @@ resource "azurerm_virtual_network" "elitedev_vnet" {
     ManagedWith = "terraform"
   }
 }
+
+resource "azurerm_resource_group" "elite_general_network"  {
+  name     = "elite_general_network"
+  location = "EASTUS2"
+}
+
+resource "azurerm_route_table" "elite_route_table" {
+  name                          = "elite_route_table"
+  location                      = azurerm_resource_group.elite_general_network.location
+  resource_group_name           = azurerm_resource_group.elite_general_network.name
+
+  route {
+    name           = "route1"
+    address_prefix = "10.1.0.0/16"
+    next_hop_type  = "vnetlocal"
+  }
+
+  tags = {
+    environment = "Development"
+    company = "elitesolutionsit"
+    ManagedWith = "terraform"
+  }
+}
