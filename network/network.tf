@@ -48,15 +48,6 @@ resource "azurerm_subnet" "database_subnet" {
   resource_group_name  = azurerm_resource_group.elite_general_network.name
   virtual_network_name = azurerm_virtual_network.elitedev_vnet.name
   address_prefixes     = ["10.0.1.0/24"]
-
-  delegation {
-    name = "delegation"
-
-    service_delegation {
-      name    = "Microsoft.ContainerInstance/containerGroups"
-      actions = ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
-    }
-  }
 }
 
 resource "azurerm_subnet" "application_subnet" {
@@ -64,15 +55,6 @@ resource "azurerm_subnet" "application_subnet" {
   resource_group_name  = azurerm_resource_group.elite_general_network.name
   virtual_network_name = azurerm_virtual_network.elitedev_vnet.name
   address_prefixes     = ["10.0.2.0/24"]
-
-  delegation {
-    name = "delegation"
-
-    service_delegation {
-      name    = "Microsoft.ContainerInstance/containerGroups"
-      actions = ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
-    }
-  }
 }
 
 
@@ -94,4 +76,18 @@ resource "azurerm_subnet_network_security_group_association" "elite_devnsg_assoc
 resource "azurerm_subnet_network_security_group_association" "elite_devnsg_assoc_application_subnet" {
   subnet_id                 = azurerm_subnet.application_subnet.id
   network_security_group_id = azurerm_network_security_group.elite_devnsg.id
+}
+
+resource "azurerm_network_security_rule" "RDP" {
+  name                        = "RDP"
+  priority                    = 100
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "3389"
+  source_address_prefix       = "70.114.65.185/32"
+  destination_address_prefix  = "VirtualNetwork"
+  resource_group_name         = azurerm_resource_group.elite_general_network.name
+  network_security_group_name = azurerm_network_security_group.elite_devnsg.name
 }
