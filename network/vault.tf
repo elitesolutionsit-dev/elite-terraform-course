@@ -1,12 +1,3 @@
-provider "azurerm" {
-  alias = "vault"
-  features {
-    key_vault {
-      purge_soft_delete_on_destroy = true
-    }
-  }
-}
-
 resource "azurerm_resource_group" "elitevault" {
   name     = "elitevault"
   location = "EASTUS2"
