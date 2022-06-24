@@ -22,20 +22,16 @@ resource "azurerm_public_ip" "elitedev_pip" {
   resource_group_name = azurerm_resource_group.elite_general_resources.name
   allocation_method   = "Static"
 
-  tags = {
-    environment = "Development"
-    company     = "elitesolutionsit"
-    ManagedWith = "terraform"
-  }
+  tags = local.common_tags
 }
 
 resource "azurerm_windows_virtual_machine" "windows_server" {
-  name                = "windows-server"
+  name                = join("-", ["win", "server", "dev"])
   location            = azurerm_resource_group.elite_general_resources.location
   resource_group_name = azurerm_resource_group.elite_general_resources.name
   size                = "Standard_DS1"
-  admin_username      = "adminuser"
-  admin_password      = "P@$$w0rd1234!"
+  admin_username      = join("", [local.admin_username, "adminuser"])
+  admin_password      = upper("P@$$w0rd1234!")
   network_interface_ids = [
     azurerm_network_interface.elitedev_nic.id,
   ]
@@ -51,4 +47,5 @@ resource "azurerm_windows_virtual_machine" "windows_server" {
     sku       = "2016-Datacenter"
     version   = "latest"
   }
+  tags = local.common_tags
 }
