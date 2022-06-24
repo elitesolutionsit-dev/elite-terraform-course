@@ -6,5 +6,5 @@ locals {
     environment = "Development"
     ManagedWith = "terraform"
   }
-    admin_username = "elite"
+  admin_username = "elite"
 }

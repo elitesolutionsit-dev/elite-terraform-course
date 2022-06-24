@@ -31,7 +31,7 @@ resource "azurerm_windows_virtual_machine" "windows_server" {
   resource_group_name = azurerm_resource_group.elite_general_resources.name
   size                = "Standard_DS1"
   admin_username      = join("", [local.admin_username, "adminuser"])
-  admin_password      = upper("P@$$w0rd1234!")
+  admin_password      = azurerm_key_vault_secret.windows_server_password.value
   network_interface_ids = [
     azurerm_network_interface.elitedev_nic.id,
   ]
