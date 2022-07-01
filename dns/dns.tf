@@ -6,5 +6,4 @@ resource "azurerm_resource_group" "dns" {
 resource "azurerm_dns_zone" "dns_zone" {
   name                = local.domainname
   resource_group_name = azurerm_resource_group.dns.name
-  tags                = local.dns_tags
 }
