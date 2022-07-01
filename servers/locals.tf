@@ -10,4 +10,5 @@ locals {
   buildregion    = lower("EASTUS2")
   existingvnet   = "elitedev_vnet"
   existingvnetrg = "elite_general_network"
+  existingnsg    = "elite_devnsg"
 }

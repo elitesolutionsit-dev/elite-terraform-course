@@ -63,3 +63,13 @@ variable "destination_address_prefix" {
   type    = string
   default = "VirtualNetwork"
 }
+
+variable "source_address_prefix_appgw" {
+  type    = string
+  default = "GatewayManager"
+}
+
+variable "destination_address_prefix_appgw" {
+  type    = string
+  default = "*"
+}
