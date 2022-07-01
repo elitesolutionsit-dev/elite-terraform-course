@@ -12,12 +12,37 @@ resource "azurerm_subnet" "frontend" {
   address_prefixes     = ["10.0.3.0/24"]
 }
 
+#/*------------Frontend Subnet Association --------------------*\#
+resource "azurerm_subnet_route_table_association" "appgw_assoc_frontend" {
+  subnet_id      = azurerm_subnet.frontend.id
+  route_table_id = data.azurerm_route_table.rtb.id
+}
+
+#/*------------Frontend Subnet Nsg Association --------------------*\#
+resource "azurerm_subnet_network_security_group_association" "elite_devnsg_assoc_frontend" {
+  subnet_id                 = azurerm_subnet.frontend.id
+  network_security_group_id = data.azurerm_network_security_group.nsg.id
+}
+
+
 #/*------------Backend Subnet --------------------*\#
 resource "azurerm_subnet" "backend" {
   name                 = join("-", [local.rgappw, "backend", "subnet"])
   resource_group_name  = data.azurerm_resource_group.vnet_rg.name
   virtual_network_name = data.azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.0.4.0/24"]
+}
+
+#/*------------Backend Subnet Association --------------------*\#
+resource "azurerm_subnet_route_table_association" "appgw_assoc_backend" {
+  subnet_id      = azurerm_subnet.backend.id
+  route_table_id = data.azurerm_route_table.rtb.id
+}
+
+#/*------------Backend Subnet Nsg Association --------------------*\#
+resource "azurerm_subnet_network_security_group_association" "elite_devnsg_assoc_backend" {
+  subnet_id                 = azurerm_subnet.backend.id
+  network_security_group_id = data.azurerm_network_security_group.nsg.id
 }
 
 #/*------------ Public IP --------------------*\#
@@ -95,4 +120,6 @@ resource "azurerm_application_gateway" "network" {
     backend_http_settings_name = local.http_setting_name
     priority                   = 10
   }
+
+  tags = local.appgw_tags
 }

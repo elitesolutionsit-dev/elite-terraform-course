@@ -21,18 +21,18 @@ resource "azurerm_virtual_network" "elitedev_vnet" {
   tags = local.network_tags
 }
 
-resource "azurerm_route_table" "elite_rtb" {
-  name                          = var.elite_rtb
-  location                      = azurerm_resource_group.elite_general_network.location
-  resource_group_name           = azurerm_resource_group.elite_general_network.name
-  disable_bgp_route_propagation = false
+resource "azurerm_route" "route" {
+  name                = "acceptanceTestRoute1"
+  resource_group_name = azurerm_resource_group.elite_general_network.name
+  route_table_name    = azurerm_route_table.elite_rtb.name
+  address_prefix      = "0.0.0.0/0"
+  next_hop_type       = "Internet"
+}
 
-  route {
-    name           = "elitedev-route1"
-    address_prefix = "10.0.0.0/16"
-    next_hop_type  = "VnetLocal"
-  }
-  tags = local.network_tags
+resource "azurerm_route_table" "elite_rtb" {
+  name                = var.elite_rtb
+  location            = azurerm_resource_group.elite_general_network.location
+  resource_group_name = azurerm_resource_group.elite_general_network.name
 }
 
 resource "azurerm_subnet" "database_subnet" {

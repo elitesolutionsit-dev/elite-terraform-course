@@ -10,7 +10,7 @@ data "azurerm_subnet" "backendnetwork" {
 }
 
 data "azurerm_network_security_group" "nsg" {
-  name                = "elite_devnsg"
+  name                = local.existingnsg
   resource_group_name = local.existingvnetrg
 }
 
