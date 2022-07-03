@@ -6,9 +6,15 @@ locals {
     environment = "Development"
     ManagedWith = "terraform"
   }
-  server         = "elite"
-  buildregion    = lower("EASTUS2")
-  existingvnet   = "elitedev_vnet"
-  existingvnetrg = "elite_general_network"
-  existingnsg    = "elite_devnsg"
+  server                  = "elite"
+  buildregion             = lower("EASTUS2")
+  existingvnet            = "elitedev_vnet"
+  existingvnetrg          = "elitegeneralnetwork"
+  existingnsg             = "elite_devnsg"
+  exisitingkeyvaultsecret = "WINDOWSSERVERPASSWORD"
+  existingkeyvault        = join("", ["elitedev", "keyvault", "master"])
+  existingkeyvaultrg      = "elitevault"
+  admin_username          = "eliteadmin"
+  existinglinuxvm         = "elite-linux-vm"
+  existinglinuxvmrg       = lower("ELITE_RESOURCES")
 }

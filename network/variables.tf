@@ -1,6 +1,6 @@
 variable "elite_general_network" {
   type    = string
-  default = "elite_general_network"
+  default = "elitegeneralnetwork"
 }
 
 variable "location" {
@@ -21,11 +21,6 @@ variable "elitedev_vnet" {
 variable "address_space" {
   type    = list(string)
   default = ["10.0.0.0/16"]
-}
-
-variable "dns_servers" {
-  type    = list(string)
-  default = ["10.0.0.4", "10.0.0.5"]
 }
 
 variable "elite_rtb" {
@@ -56,7 +51,7 @@ variable "address_prefixes_application" {
 
 variable "source_address_prefix" {
   type    = string
-  default = "70.114.65.185/32"
+  default = "47.185.227.216/32"
 }
 
 variable "destination_address_prefix" {

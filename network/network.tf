@@ -14,19 +14,17 @@ resource "azurerm_virtual_network" "elitedev_vnet" {
   location            = azurerm_resource_group.elite_general_network.location
   resource_group_name = azurerm_resource_group.elite_general_network.name
   address_space       = var.address_space
-  dns_servers         = var.dns_servers
-
   # subnet = []
 
   tags = local.network_tags
 }
 
 resource "azurerm_route" "route" {
-  name                = "acceptanceTestRoute1"
+  name                = "route1"
   resource_group_name = azurerm_resource_group.elite_general_network.name
   route_table_name    = azurerm_route_table.elite_rtb.name
-  address_prefix      = "0.0.0.0/0"
-  next_hop_type       = "Internet"
+  address_prefix      = "10.0.0.0/16"
+  next_hop_type       = "VnetLocal"
 }
 
 resource "azurerm_route_table" "elite_rtb" {

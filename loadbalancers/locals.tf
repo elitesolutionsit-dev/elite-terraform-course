@@ -10,7 +10,7 @@ locals {
   rgappw         = "elite"
   buildregion    = lower("EASTUS2")
   existingvnet   = "elitedev_vnet"
-  existingvnetrg = "elite_general_network"
+  existingvnetrg = "elitegeneralnetwork"
   existingnsg    = "elite_devnsg"
   existingrtb    = "elite_rtb"
 }
