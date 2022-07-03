@@ -39,7 +39,7 @@ resource "azurerm_key_vault" "elitevault" {
 
 resource "random_password" "windows_server_password" {
   length  = 20
-  special = true
+  special = false
 }
 
 ## ------------------------------------------##

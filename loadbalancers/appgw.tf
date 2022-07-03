@@ -67,7 +67,7 @@ locals {
 
 #/*------------ Appgw --------------------*\#
 resource "azurerm_application_gateway" "network" {
-  name                = join("-", [local.rgappw, "devappgw"])
+  name                = join("-", [local.rgappw, "devgateway"])
   resource_group_name = azurerm_resource_group.appgw_rg.name
   location            = local.buildregion
 
@@ -94,6 +94,7 @@ resource "azurerm_application_gateway" "network" {
 
   backend_address_pool {
     name = local.backend_address_pool_name
+    ip_addresses = ["20.242.99.149"]
   }
 
   backend_http_settings {
