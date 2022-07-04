@@ -21,3 +21,13 @@ data "azurerm_route_table" "rtb" {
   name                = local.existingrtb
   resource_group_name = local.existingvnetrg
 }
+
+data "azurerm_key_vault_secret" "secret" {
+  name         = "ssl-password"
+  key_vault_id = data.azurerm_key_vault.existing.id
+}
+
+data "azurerm_key_vault" "existing" {
+  name                = "elitedevkeyvaultmaster"
+  resource_group_name = "elitevault"
+}

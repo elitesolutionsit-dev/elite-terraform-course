@@ -7,10 +7,11 @@ locals {
     ManagedWith = "terraform"
   }
 
-  rgappw         = "elite"
-  buildregion    = lower("EASTUS2")
-  existingvnet   = "elitedev_vnet"
-  existingvnetrg = "elitegeneralnetwork"
-  existingnsg    = "elite_devnsg"
-  existingrtb    = "elite_rtb"
+  rgappw          = "elite"
+  buildregion     = lower("EASTUS2")
+  existingvnet    = "elitedev_vnet"
+  existingvnetrg  = "elitegeneralnetwork"
+  existingnsg     = "elite_devnsg"
+  existingrtb     = "elite_rtb"
+  ssl_certificate = "elitelabtoolsazure.link"
 }

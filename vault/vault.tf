@@ -43,27 +43,35 @@ resource "random_password" "windows_server_password" {
 }
 
 ## ------------------------------------------##
-#Create KeyVault VM password for database
-resource "random_password" "sql_server_password" {
-  length  = 20
-  special = true
+#Create KeyVault VM password for ssl
+resource "random_password" "ssl-password" {
+  length  = 11
+  special = false
 }
 
 ## ------------------------------------------##
 #Create Key Vault Secretfor windows server
-resource "azurerm_key_vault_secret" "windows_server_password" {
-  name         = upper("windowsserverpassword")
-  value        = random_password.windows_server_password.result
-  key_vault_id = azurerm_key_vault.elitevault.id
+# resource "azurerm_key_vault_secret" "windows_server_password" {
+#   name         = upper("windowsserverpassword")
+#   value        = random_password.windows_server_password.result
+#   key_vault_id = azurerm_key_vault.elitevault.id
 
-  depends_on = [azurerm_key_vault.elitevault]
-}
+#   depends_on = [azurerm_key_vault.elitevault]
+# }
 
-## ------------------------------------------##
-#Create Key Vault Secret for database
-resource "azurerm_key_vault_secret" "sql_server_password" {
-  name         = upper("msqlpassword")
-  value        = random_password.sql_server_password.result
+# ## ------------------------------------------##
+# #Create Key Vault Secret for database
+# resource "azurerm_key_vault_secret" "sql_server_password" {
+#   name         = upper("msqlpassword")
+#   value        = random_password.sql_server_password.result
+#   key_vault_id = azurerm_key_vault.elitevault.id
+
+#   depends_on = [azurerm_key_vault.elitevault]
+# }
+
+resource "azurerm_key_vault_secret" "ssl-password" {
+  name         = "ssl-password"
+  value        = random_password.ssl-password.result
   key_vault_id = azurerm_key_vault.elitevault.id
 
   depends_on = [azurerm_key_vault.elitevault]
