@@ -61,11 +61,107 @@ locals {
   frontend_ip_configuration_name = "${data.azurerm_virtual_network.vnet.name}-feip"
   http_setting_name              = "${data.azurerm_virtual_network.vnet.name}-be-htst"
   listener_name                  = "${data.azurerm_virtual_network.vnet.name}-httplstn"
+  listener_name_https            = "${data.azurerm_virtual_network.vnet.name}-httpslstn"
   request_routing_rule_name      = join("-", [data.azurerm_virtual_network.vnet.name, "rqrt"])
   redirect_configuration_name    = join("-", [data.azurerm_virtual_network.vnet.name, "rdrcfg"])
 }
 
-#/*------------ Appgw --------------------*\#
+#/*------------ Https Appgw --------------------*\#
+resource "azurerm_application_gateway" "network" {
+  name                = join("-", [local.rgappw, "devgateway"])
+  resource_group_name = azurerm_resource_group.appgw_rg.name
+  location            = local.buildregion
+
+  sku {
+    name     = "WAF_v2"
+    tier     = "WAF_v2"
+    capacity = 2
+  }
+
+  gateway_ip_configuration {
+    name      = join("-", [local.rgappw, "ipconf"])
+    subnet_id = azurerm_subnet.frontend.id
+  }
+
+  frontend_port {
+    name = local.frontend_port_name
+    port = 80
+  }
+
+  frontend_port {
+    name = "${data.azurerm_virtual_network.vnet.name}_443"
+    port = 443
+  }
+
+  frontend_ip_configuration {
+    name                 = local.frontend_ip_configuration_name
+    public_ip_address_id = azurerm_public_ip.pip.id
+  }
+
+  backend_address_pool {
+    name = local.backend_address_pool_name
+  }
+
+  backend_http_settings {
+    name                  = local.http_setting_name
+    cookie_based_affinity = "Disabled"
+    path                  = "/"
+    port                  = 80
+    protocol              = "Http"
+    request_timeout       = 60
+  }
+  http_listener {
+    name                           = local.listener_name
+    frontend_ip_configuration_name = local.frontend_ip_configuration_name
+    frontend_port_name             = local.frontend_port_name
+    protocol                       = "Http"
+  }
+  http_listener {
+    name                           = local.listener_name_https
+    frontend_ip_configuration_name = local.frontend_ip_configuration_name
+    frontend_port_name             = "${data.azurerm_virtual_network.vnet.name}_443"
+    protocol                       = "Https"
+    ssl_certificate_name           = "elitelabtoolsazure.link"
+
+  }
+
+  request_routing_rule {
+    name                       = "req-routehttps"
+    rule_type                  = "Basic"
+    http_listener_name         = local.listener_name
+    backend_address_pool_name  = local.backend_address_pool_name
+    backend_http_settings_name = local.http_setting_name
+    priority                   = 11
+  }
+
+  request_routing_rule {
+    name                       = local.request_routing_rule_name
+    rule_type                  = "Basic"
+    http_listener_name         = local.listener_name_https
+    backend_address_pool_name  = local.backend_address_pool_name
+    backend_http_settings_name = local.http_setting_name
+    priority                   = 10
+  }
+  redirect_configuration {
+    name                 = "elitedev-rdrct"
+    redirect_type        = "Permanent"
+    target_listener_name = local.listener_name_https
+  }
+  ssl_certificate {
+    name     = local.ssl_certificate
+    password = var.pfx_certificate_password
+    data     = var.pfx_certificate_data
+  }
+  ssl_policy {
+    policy_type          = "Predefined"
+    policy_name          = "AppGwSslPolicy20150501"
+    min_protocol_version = "TLSv1_0"
+  }
+
+  tags = local.appgw_tags
+}
+
+#/*------------ Http Appgw --------------------*\#
 resource "azurerm_application_gateway" "network" {
   name                = join("-", [local.rgappw, "devgateway"])
   resource_group_name = azurerm_resource_group.appgw_rg.name
