@@ -26,5 +26,15 @@ resource "azurerm_dns_a_record" "record" {
   zone_name           = azurerm_dns_zone.dns_zone.name
   resource_group_name = azurerm_resource_group.dns.name
   ttl                 = 300
-  records             = ["20.7.36.77"]
+  records             = ["20.122.94.123"]
+  tags                = local.dns_tags
+}
+
+resource "azurerm_dns_cname_record" "cname_record" {
+  name                = var.cname
+  zone_name           = azurerm_dns_zone.dns_zone.name
+  resource_group_name = azurerm_resource_group.dns.name
+  ttl                 = 300
+  record              = var.record
+  tags                = local.dns_tags
 }

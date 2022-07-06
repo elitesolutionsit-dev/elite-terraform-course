@@ -13,5 +13,6 @@ locals {
   existingvnetrg  = "elitegeneralnetwork"
   existingnsg     = "elite_devnsg"
   existingrtb     = "elite_rtb"
+  ipconfname      = "internal"
   ssl_certificate = "elitelabtoolsazure.link"
 }

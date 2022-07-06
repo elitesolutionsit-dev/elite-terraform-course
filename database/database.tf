@@ -1,18 +1,23 @@
+resource "azurerm_resource_group" "elite_general_database" {
+  name     = join("_", [local.server, "resourcesdb"])
+  location = local.buildregion
+}
+
 resource "azurerm_storage_account" "elite_storageaccount" {
   name                     = join("", ["elite", "storageaccount"])
-  location                 = azurerm_resource_group.elite_general_resources.location
-  resource_group_name      = azurerm_resource_group.elite_general_resources.name
+  location                 = azurerm_resource_group.elite_general_database.location
+  resource_group_name      = azurerm_resource_group.elite_general_database.name
   account_tier             = "Standard"
   account_replication_type = "LRS"
 }
 
 resource "azurerm_mssql_server" "elitedevsqlserver" {
   name                         = join("", ["elitedev", "sqlserver"])
-  location                     = azurerm_resource_group.elite_general_resources.location
-  resource_group_name          = azurerm_resource_group.elite_general_resources.name
+  location                     = azurerm_resource_group.elite_general_database.location
+  resource_group_name          = azurerm_resource_group.elite_general_database.name
   version                      = "12.0"
   administrator_login          = join("", ["elitedev", "sqladmin"])
-  administrator_login_password = azurerm_key_vault_secret.sql_server_password.value
+  administrator_login_password = "84q3Q@Ib4VR6"
 }
 
 resource "azurerm_mssql_database" "elitedev_database" {
@@ -32,7 +37,7 @@ resource "azurerm_mssql_database" "elitedev_database" {
 #     retention_in_days                       = 6
 #   }
 
-  tags = local.common_tags
+  tags = local.database_tags
 }
 
 resource "azurerm_mssql_firewall_rule" "fwRule" {

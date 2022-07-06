@@ -44,10 +44,10 @@ resource "random_password" "windows_server_password" {
 
 ## ------------------------------------------##
 #Create KeyVault VM password for ssl
-resource "random_password" "ssl-password" {
-  length  = 11
-  special = false
-}
+# resource "random_password" "ssl-password" {
+#   length  = 11
+#   special = false
+# }
 
 ## ------------------------------------------##
 #Create Key Vault Secretfor windows server
