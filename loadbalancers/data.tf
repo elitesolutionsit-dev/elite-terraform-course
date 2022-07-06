@@ -22,12 +22,17 @@ data "azurerm_route_table" "rtb" {
   resource_group_name = local.existingvnetrg
 }
 
-data "azurerm_key_vault_secret" "secret" {
-  name         = "ssl-password"
-  key_vault_id = data.azurerm_key_vault.existing.id
-}
+# data "azurerm_key_vault_secret" "secret" {
+#   name         = "ssl-password"
+#   key_vault_id = data.azurerm_key_vault.existing.id
+# }
 
-data "azurerm_key_vault" "existing" {
-  name                = "elitedevkeyvaultmaster"
-  resource_group_name = "elitevault"
+# data "azurerm_key_vault" "existing" {
+#   name                = "elitedevkeyvaultmaster"
+#   resource_group_name = "elitevault"
+# }
+
+data "azurerm_network_interface" "vm-nic" {
+  name                = "elite-lab-nic"
+  resource_group_name = "elite_resources"
 }

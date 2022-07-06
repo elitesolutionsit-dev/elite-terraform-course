@@ -3,4 +3,4 @@ terraform.tfstate.backup
 *.terraform*
 linuxserverkey
 linuxserverkey.pub
-# *.tfvars
+*.tfvars

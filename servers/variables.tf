@@ -14,3 +14,15 @@ variable "statestorage_account" {
   type    = string
   default = "elitedevstorage"
 }
+
+variable "db_username" {
+  type = string
+}
+
+variable "db_user_password" {
+  type = string
+}
+
+variable "db_name" {
+  type = string
+}

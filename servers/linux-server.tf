@@ -27,6 +27,7 @@ resource "azurerm_linux_virtual_machine" "Linuxvm" {
   location            = local.buildregion
   size                = "Standard_DS1"
   admin_username      = "adminuser"
+  user_data           = data.cloudinit_config.userdata.rendered
   network_interface_ids = [
     azurerm_network_interface.labnic.id,
   ]
@@ -42,9 +43,9 @@ resource "azurerm_linux_virtual_machine" "Linuxvm" {
   }
 
   source_image_reference {
+    offer     = "0001-com-ubuntu-server-focal"
     publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "18.04-LTS"
+    sku       = "20_04-lts-gen2"
     version   = "latest"
   }
 }
