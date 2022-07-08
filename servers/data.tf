@@ -36,23 +36,23 @@ data "azurerm_resource_group" "vnet_rg" {
 # }
 
 ## ----- Run Userdata ----- ##
-data "cloudinit_config" "userdata" {
-  gzip          = true
-  base64_encode = true
+# data "cloudinit_config" "userdata" {
+#   gzip          = true
+#   base64_encode = true
 
-  part {
-    content_type = "text/x-shellscript"
-    filename     = "webapp"
-    content = templatefile("./templates/webapp.tpl",
+#   part {
+#     content_type = "text/x-shellscript"
+#     filename     = "webapp"
+#     content = templatefile("./templates/webapp.tpl",
 
-      {
-        db_username      = var.db_username
-        db_user_password = var.db_user_password
-        db_name          = var.db_name
-        mssql_host       = data.azurerm_mssql_server.elite_resourcesdb.fully_qualified_domain_name
-    })
-  }
-}
+#       {
+#         db_username      = var.db_username
+#         db_user_password = var.db_user_password
+#         db_name          = var.db_name
+#         mssql_host       = data.azurerm_mssql_server.elite_resourcesdb.fully_qualified_domain_name
+#     })
+#   }
+# }
 
 # data "azurerm_mssql_server" "elite_resourcesdb" {
 #   name                = "elitedevsqlserver"
