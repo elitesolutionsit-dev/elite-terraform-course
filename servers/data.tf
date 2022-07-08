@@ -58,3 +58,4 @@ data "cloudinit_config" "userdata" {
 #   name                = "elitedevsqlserver"
 #   resource_group_name = "elite_resourcesdb"
 # }
+
