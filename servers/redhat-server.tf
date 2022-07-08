@@ -60,7 +60,7 @@ resource "azurerm_network_interface" "labnic2" {
     name                          = "internal"
     subnet_id                     = data.azurerm_subnet.backendnetwork.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.labpip.id
+    public_ip_address_id          = azurerm_public_ip.labpip2.id
   }
 }
 
