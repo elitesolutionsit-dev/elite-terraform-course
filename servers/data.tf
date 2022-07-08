@@ -30,10 +30,10 @@ data "azurerm_resource_group" "vnet_rg" {
 #   resource_group_name = local.existingkeyvaultrg
 # }
 
-data "azurerm_virtual_machine" "existingvm" {
-  name                = local.existinglinuxvm
-  resource_group_name = local.existinglinuxvmrg
-}
+# data "azurerm_virtual_machine" "existingvm" {
+#   name                = local.existinglinuxvm
+#   resource_group_name = local.existinglinuxvmrg
+# }
 
 ## ----- Run Userdata ----- ##
 data "cloudinit_config" "userdata" {
@@ -54,7 +54,7 @@ data "cloudinit_config" "userdata" {
   }
 }
 
-data "azurerm_mssql_server" "elite_resourcesdb" {
-  name                = "elitedevsqlserver"
-  resource_group_name = "elite_resourcesdb"
-}
+# data "azurerm_mssql_server" "elite_resourcesdb" {
+#   name                = "elitedevsqlserver"
+#   resource_group_name = "elite_resourcesdb"
+# }
