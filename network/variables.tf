@@ -51,7 +51,7 @@ variable "address_prefixes_application" {
 
 variable "source_address_prefix" {
   type    = string
-  default = "70.114.65.185/32"
+  default = "47.185.227.216/32"
 }
 
 variable "destination_address_prefix" {
