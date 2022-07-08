@@ -29,7 +29,7 @@ killall -v mysqld
 sudo systemctl stop mysql 
 sudo systemctl start mysql
 
-# Create database user and grant privileges
+# grant privileges
 mysql -uroot -p${db_user_password} -e "CREATE USER '${db_username}'@'${mssql_host}' IDENTIFIED BY '$db_user_password';"
 mysql -uroot -p${db_user_password} -e "GRANT ALL ON *.* TO '${db_username}'@'${mssql_host}';"
 mysql --user=${db_username} --password=${db_user_password} --host=${mssql_host} --database=${db_name}
