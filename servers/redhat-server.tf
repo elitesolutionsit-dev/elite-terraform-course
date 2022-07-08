@@ -82,7 +82,7 @@ resource "azurerm_linux_virtual_machine" "Linuxvm2" {
   admin_username      = "adminuser"
 #   user_data           = data.cloudinit_config.userdata.rendered
   network_interface_ids = [
-    azurerm_network_interface.labnic.id,
+    azurerm_network_interface.labnic2.id,
   ]
 
   admin_ssh_key {
