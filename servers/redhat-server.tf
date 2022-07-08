@@ -27,7 +27,7 @@ resource "azurerm_linux_virtual_machine" "Linuxvm" {
   location            = local.buildregion
   size                = "Standard_DS1"
   admin_username      = "adminuser"
-  user_data           = data.cloudinit_config.userdata.rendered
+#   user_data           = data.cloudinit_config.userdata.rendered
   network_interface_ids = [
     azurerm_network_interface.labnic.id,
   ]
