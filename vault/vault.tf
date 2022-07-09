@@ -69,10 +69,10 @@ resource "random_password" "windows_server_password" {
 #   depends_on = [azurerm_key_vault.elitevault]
 # }
 
-resource "azurerm_key_vault_secret" "ssl-password" {
-  name         = "ssl-password"
-  value        = random_password.ssl-password.result
-  key_vault_id = azurerm_key_vault.elitevault.id
+# resource "azurerm_key_vault_secret" "ssl-password" {
+#   name         = "ssl-password"
+#   value        = random_password.ssl-password.result
+#   key_vault_id = azurerm_key_vault.elitevault.id
 
-  depends_on = [azurerm_key_vault.elitevault]
-}
+#   depends_on = [azurerm_key_vault.elitevault]
+# }
