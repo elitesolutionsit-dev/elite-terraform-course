@@ -6,7 +6,7 @@ resource "azurerm_resource_group" "elitevault" {
 
 resource "azurerm_key_vault" "elitevault" {
   provider                    = azurerm.vault
-  name                        = join("", ["elite", "dev", "keyvaultmaster"])
+  name                        = join("", ["elite", "dev", "mastervault"])
   location                    = azurerm_resource_group.elitevault.location
   resource_group_name         = azurerm_resource_group.elitevault.name
   enabled_for_disk_encryption = true
@@ -69,10 +69,10 @@ resource "random_password" "windows_server_password" {
 #   depends_on = [azurerm_key_vault.elitevault]
 # }
 
-resource "azurerm_key_vault_secret" "ssl-password" {
-  name         = "ssl-password"
-  value        = random_password.ssl-password.result
-  key_vault_id = azurerm_key_vault.elitevault.id
+# resource "azurerm_key_vault_secret" "ssl-password" {
+#   name         = "ssl-password"
+#   value        = random_password.ssl-password.result
+#   key_vault_id = azurerm_key_vault.elitevault.id
 
-  depends_on = [azurerm_key_vault.elitevault]
-}
+#   depends_on = [azurerm_key_vault.elitevault]
+# }
