@@ -6,7 +6,7 @@ resource "azurerm_resource_group" "elitevault" {
 
 resource "azurerm_key_vault" "elitevault" {
   provider                    = azurerm.vault
-  name                        = join("", ["elite", "dev", "keyvaultmaster"])
+  name                        = join("", ["elite", "dev", "mastervault"])
   location                    = azurerm_resource_group.elitevault.location
   resource_group_name         = azurerm_resource_group.elitevault.name
   enabled_for_disk_encryption = true
