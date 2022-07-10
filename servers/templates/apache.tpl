@@ -1,24 +1,19 @@
 #!/bin/bash -x
 exec > >(tee /var/log/userdata.log) 2>&1
 
-yum update -y
 
-sudo su - adminuser
-sudo yum install mariadb-server mariadb -y
-sudo yum install -y httpd mariadb-server
-sudo systemctl start httpd
-sudo systemctl enable httpd
-sudo systemctl is-enabled httpd
+sudo apt update -y
+sudo apt install mariadb-server -y
+sudo mysql_secure_installation -y
+sudo apt install apache2 -y
 
 sudo usermod -a -G apache adminuser
 sudo chown -R adminuser:apache /var/www
 sudo chmod 2775 /var/www && find /var/www -type d -exec sudo chmod 2775 {} \;
 find /var/www -type f -exec sudo chmod 0664 {} \;
 
-​
-echo ${config_file}
+
 exists=$(sudo cat /var/www/html/wp-config.php| grep DB_HOST|cut -d\' -f 4)
-echo $exists
 ​
 if [[ ${mssql_sqlserver} == $exists ]];
 then
@@ -52,7 +47,3 @@ then
 else
     mysql --user=${db_user} --password=${db_password} --host=${mssql_sqlserver} --database=${db_name} --execute="UPDATE wp_options SET option_value='${appgateway}' WHERE option_value LIKE 'http%';" 
 fi
-​
-# Restart Apache 
-sudo systemctl restart httpd
-sudo service httpd restart
