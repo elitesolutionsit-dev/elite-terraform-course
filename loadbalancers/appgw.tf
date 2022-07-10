@@ -162,11 +162,11 @@ resource "azurerm_application_gateway" "network" {
 }
 
 #/*------------ Https Appgw Association --------------------*\#
-resource "azurerm_network_interface_application_gateway_backend_address_pool_association" "beapassoc" {
-  network_interface_id    = data.azurerm_network_interface.vm-nic.id
-  ip_configuration_name   = local.ipconfname
-  backend_address_pool_id = tolist(azurerm_application_gateway.network.backend_address_pool).0.id
-}
+# resource "azurerm_network_interface_application_gateway_backend_address_pool_association" "beapassoc" {
+#   network_interface_id    = data.azurerm_network_interface.vm-nic.id
+#   ip_configuration_name   = local.ipconfname
+#   backend_address_pool_id = tolist(azurerm_application_gateway.network.backend_address_pool).0.id
+# }
 
 # #/*------------ Http Appgw --------------------*\#
 # resource "azurerm_application_gateway" "network" {
