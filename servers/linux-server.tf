@@ -34,7 +34,7 @@ resource "azurerm_linux_virtual_machine" "Linuxvm" {
 
   admin_ssh_key {
     username   = "adminuser"
-    public_key = file(var.path_to_publickey)
+    public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDiE9a7Gprez5sXNcm62CtTtr34zpU3kFFz4lVq8MHYZf9nvRa9N2Rtr6V6UkiU/SUqrvkjAj2flVbfrzBPQ2x/PNc9rtWNznd6jRbG0BzHARB5b4X4uDtxm022FSQWhPjDWFy2p4k2EhHWMTHQkESvxlXrvoM1lMmgOTaqHPGQdD3gYZuSFI8GTdRa7Um798FaM6iDTJi2NHvTK2NpFt0stxdcxt1WGJbN3B/D9p6UM5gJz2+4NC/j4YLJJV3x4eaF05RgEzbZfvmBF6KQNDXQPKCHjTaSk4W7jEnF1K6akGPw9U0uns4FRCVWVzz2wDCQML1ykRdxKVQVN6CZbMKo0tVWz9u3vkOkBZ1OF5gXhhfgrlke7930Tur3JMYHg6zAB4r03YH54mCvw2m/fBfnaZbnmFjOk2ZxZa/MMFVmb1Rkc3UuyaVQTlhPrs2oBLVjhgX42m5JvyP8pV7mNX1FWCkt+CD3jc3L7kZ+izyitd6rhSywk9i7rTB5Ab0RFP8= lbena@LAPTOP-QB0DU4OG"
   }
 
   os_disk {
