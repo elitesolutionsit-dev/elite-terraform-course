@@ -46,3 +46,4 @@ resource "azurerm_mssql_firewall_rule" "fwRule" {
   start_ip_address = "70.114.65.185"
   end_ip_address   = "70.114.65.185"
 }
+
