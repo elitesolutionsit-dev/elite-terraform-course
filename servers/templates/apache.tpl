@@ -6,15 +6,14 @@ sudo apt update -y
 sudo apt install mariadb-server mariadb-client -y
 
 sudo apt install apache2 -y
-sudo apt install php7.4 php7.4-mysql php-common php7.4-cli php7.4-json php7.4-common php7.4-opcache libapache2-mod-php7.4
+sudo apt install php7.4 php7.4-mysql php-common php7.4-cli php7.4-json php7.4-common php7.4-opcache libapache2-mod-php7.4 -y
 
-
+sudo useradd apache
 sudo usermod -a -G apache adminuser
 sudo chown -R adminuser:apache /var/www
 
 sudo chmod 2775 /var/www && find /var/www -type d -exec sudo chmod 2775 {} \;
 find /var/www -type f -exec sudo chmod 0664 {} \;
-
 
 # if [[ ${mssql_sqlserver} == $exists ]];
 # then
