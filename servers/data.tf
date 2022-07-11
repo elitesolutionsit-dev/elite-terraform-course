@@ -20,6 +20,7 @@ data "azurerm_resource_group" "vnet_rg" {
   name = local.existingvnetrg
 }
 
+
 # data "azurerm_key_vault_secret" "exisitingkeyvaultsecret" {
 #   name         = local.exisitingkeyvaultsecret
 #   key_vault_id = data.azurerm_key_vault.existingkeyvault.id
@@ -55,12 +56,12 @@ data "cloudinit_config" "userdata" {
   }
 }
 
-data "azurerm_mssql_server" "elite_resourcesdb" {
-  name                = "elitedevsqlserver"
-  resource_group_name = "elite_resourcesdb"
-}
+# data "azurerm_mssql_server" "elite_resourcesdb" {
+#   name                = "elitedevsqlserver"
+#   resource_group_name = "elite_resourcesdb"
+# }
 
-data "azurerm_application_gateway" "appgw" {
-  name                = "elite-devgateway"
-  resource_group_name = "elite-appgw-dev"
-}
+# data "azurerm_application_gateway" "appgw" {
+#   name                = "elite-devgateway"
+#   resource_group_name = "elite-appgw-dev"
+# }
