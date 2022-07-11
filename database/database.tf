@@ -43,6 +43,7 @@ resource "azurerm_mssql_database" "elitedev_database" {
 resource "azurerm_mssql_firewall_rule" "fwRule" {
   name             = join("", ["fwdevRule", "db"])
   server_id        = azurerm_mssql_server.elitedevsqlserver.id
-  start_ip_address = "47.185.227.216"
-  end_ip_address   = "47.185.227.216"
+  start_ip_address = "70.114.65.185"
+  end_ip_address   = "70.114.65.185"
 }
+
