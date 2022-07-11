@@ -20,7 +20,6 @@ data "azurerm_resource_group" "vnet_rg" {
   name = local.existingvnetrg
 }
 
-
 # data "azurerm_key_vault_secret" "exisitingkeyvaultsecret" {
 #   name         = local.exisitingkeyvaultsecret
 #   key_vault_id = data.azurerm_key_vault.existingkeyvault.id
