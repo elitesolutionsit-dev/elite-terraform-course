@@ -55,12 +55,12 @@ data "cloudinit_config" "userdata" {
   }
 }
 
-data "azurerm_mssql_server" "elite_resourcesdb" {
-  name                = "elitedevsqlserver"
-  resource_group_name = "elite_resourcesdb"
-}
+# data "azurerm_mssql_server" "elite_resourcesdb" {
+#   name                = "elitedevsqlserver"
+#   resource_group_name = "elite_resourcesdb"
+# }
 
-data "azurerm_application_gateway" "appgw" {
-  name                = "elite-devgateway"
-  resource_group_name = "elite-appgw-dev"
-}
+# data "azurerm_application_gateway" "appgw" {
+#   name                = "elite-devgateway"
+#   resource_group_name = "elite-appgw-dev"
+# }
