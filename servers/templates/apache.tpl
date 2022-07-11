@@ -28,11 +28,11 @@ find /var/www -type d -exec sudo chmod 2775 {} \;
 # Recursively change file permission of /var/www & subdir to add group write permmission
 sudo find /var/www -type f -exec sudo chmod 0664 {} \;
 
-field=$(mysql --user=${db_user} --password=${db_password} --host=${mssql_sqlserver} --database=${db_name} --batch --skip-column-names --execute="SELECT option_value FROM wp_options WHERE option_name = 'siteurl';")
+field=$(mysql --user=${db_username} --password=${db_password} --host=${mssql_sqlserver} --database=${db_name} --batch --skip-column-names --execute="SELECT option_value FROM wp_options WHERE option_name = 'siteurl';")
 
 if [[ ${appgateway} == $field ]];
 then 
     echo "Already Updated"
 else
-    mysql --user=${db_user} --password=${db_password} --host=${mssql_sqlserver} --database=${db_name} --execute="UPDATE wp_options SET option_value='${appgateway}' WHERE option_value LIKE 'http%';" 
+    mysql --user=${db_username} --password=${db_password} --host=${mssql_sqlserver} --database=${db_name} --execute="UPDATE wp_options SET option_value='${appgateway}' WHERE option_value LIKE 'http%';" 
 fi
