@@ -35,27 +35,32 @@ data "azurerm_resource_group" "vnet_rg" {
 #   resource_group_name = local.existinglinuxvmrg
 # }
 
-## ----- Run Userdata ----- ##
-# data "cloudinit_config" "userdata" {
-#   gzip          = true
-#   base64_encode = true
+# ----- Run Userdata ----- ##
+data "cloudinit_config" "userdata" {
+  gzip          = true
+  base64_encode = true
 
-#   part {
-#     content_type = "text/x-shellscript"
-#     filename     = "webapp"
-#     content = templatefile("./templates/webapp.tpl",
+  part {
+    content_type = "text/x-shellscript"
+    filename     = "apache"
+    content = templatefile("./templates/apache.tpl",
 
-#       {
-#         db_username      = var.db_username
-#         db_user_password = var.db_user_password
-#         db_name          = var.db_name
-#         mssql_host       = data.azurerm_mssql_server.elite_resourcesdb.fully_qualified_domain_name
-#     })
-#   }
-# }
+      {
+        db_username     = var.db_username
+        db_password     = var.db_password
+        db_name         = var.db_name
+        mssql_sqlserver = data.azurerm_mssql_server.elite_resourcesdb.fully_qualified_domain_name
+        appgateway      = data.azurerm_application_gateway.appgw.id
+    })
+  }
+}
 
-# data "azurerm_mssql_server" "elite_resourcesdb" {
-#   name                = "elitedevsqlserver"
-#   resource_group_name = "elite_resourcesdb"
-# }
+data "azurerm_mssql_server" "elite_resourcesdb" {
+  name                = "elitedevsqlserver"
+  resource_group_name = "elite_resourcesdb"
+}
 
+data "azurerm_application_gateway" "appgw" {
+  name                = "elite-devgateway"
+  resource_group_name = "elite-appgw-dev"
+}

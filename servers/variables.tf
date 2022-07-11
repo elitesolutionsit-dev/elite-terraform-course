@@ -19,7 +19,7 @@ variable "db_username" {
   type = string
 }
 
-variable "db_user_password" {
+variable "db_password" {
   type = string
 }
 
