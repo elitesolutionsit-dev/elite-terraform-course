@@ -15,13 +15,6 @@ sudo chown -R adminuser:apache /var/www
 sudo chmod 2775 /var/www && find /var/www -type d -exec sudo chmod 2775 {} \;
 find /var/www -type f -exec sudo chmod 0664 {} \;
 
-# if [[ ${mssql_sqlserver} == $exists ]];
-# then
-#         echo "True"
-# else
-#         sudo sed -i s+$exists+${mssql_sqlserver}+g ${config_file}
-# fi
-
 # Grant file ownership of /var/www & its contents to apache user
 sudo chown -R apache /var/www
 
