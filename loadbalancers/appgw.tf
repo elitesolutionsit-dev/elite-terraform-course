@@ -155,7 +155,7 @@ resource "azurerm_application_gateway" "network" {
   ssl_policy {
     policy_type          = "Predefined"
     policy_name          = "AppGwSslPolicy20150501"
-    min_protocol_version = "TLSv1_0"
+    min_protocol_version = "TLSv1_2"
   }
 
   tags = local.appgw_tags
