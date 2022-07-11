@@ -3,44 +3,41 @@ exec > >(tee /var/log/userdata.log) 2>&1
 
 
 sudo apt update -y
-sudo apt install mariadb-server -y
-sudo mysql_secure_installation -y
+sudo apt install mariadb-server mariadb-client -y
+
 sudo apt install apache2 -y
+sudo apt install php7.4 php7.4-mysql php-common php7.4-cli php7.4-json php7.4-common php7.4-opcache libapache2-mod-php7.4
+
 
 sudo usermod -a -G apache adminuser
 sudo chown -R adminuser:apache /var/www
+
 sudo chmod 2775 /var/www && find /var/www -type d -exec sudo chmod 2775 {} \;
 find /var/www -type f -exec sudo chmod 0664 {} \;
 
 
-exists=$(sudo cat /var/www/html/wp-config.php| grep DB_HOST|cut -d\' -f 4)
-​
-if [[ ${mssql_sqlserver} == $exists ]];
-then
-        echo "True"
-else
-        sudo sed -i s+$exists+${mssql_sqlserver}+g ${config_file}
-fi
-​
-# Allow wordpress to use Permalinks
-sudo sed -i '151s/None/All/' /etc/httpd/conf/httpd.conf
+# if [[ ${mssql_sqlserver} == $exists ]];
+# then
+#         echo "True"
+# else
+#         sudo sed -i s+$exists+${mssql_sqlserver}+g ${config_file}
+# fi
 
 # Grant file ownership of /var/www & its contents to apache user
 sudo chown -R apache /var/www
-​
+
 # Grant group ownership of /var/www & contents to apache group
 sudo chgrp -R apache /var/www
-​
+
 # Change directory permissions of /var/www & its subdir to add group write 
 sudo chmod 2775 /var/www
 find /var/www -type d -exec sudo chmod 2775 {} \;
-​
+
 # Recursively change file permission of /var/www & subdir to add group write permmission
 sudo find /var/www -type f -exec sudo chmod 0664 {} \;
-​
-​
+
 field=$(mysql --user=${db_user} --password=${db_password} --host=${mssql_sqlserver} --database=${db_name} --batch --skip-column-names --execute="SELECT option_value FROM wp_options WHERE option_name = 'siteurl';")
-​
+
 if [[ ${appgateway} == $field ]];
 then 
     echo "Already Updated"
