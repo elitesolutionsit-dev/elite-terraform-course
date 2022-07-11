@@ -50,8 +50,8 @@ data "cloudinit_config" "userdata" {
         db_username     = var.db_username
         db_password     = var.db_password
         db_name         = var.db_name
-        mssql_sqlserver = data.azurerm_mssql_server.elite_resourcesdb.fully_qualified_domain_name
-        appgateway      = data.azurerm_application_gateway.appgw.id
+        # mssql_sqlserver = data.azurerm_mssql_server.elite_resourcesdb.fully_qualified_domain_name
+        # appgateway      = data.azurerm_application_gateway.appgw.id
     })
   }
 }
